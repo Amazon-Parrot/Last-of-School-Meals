@@ -7,6 +7,9 @@ public class UIIngredientsBt : MonoBehaviour {
     public GameObject Ingredients;
     public GameObject ButtonIngredient;
 
+
+    private float mousePosX;
+
 	// Use this for initialization
 	void Start () {
         for (var i = 0; i < Ingredients.transform.childCount; i++) {
@@ -23,6 +26,18 @@ public class UIIngredientsBt : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		
+
+	    if (Input.GetMouseButtonDown(0)) {
+	        mousePosX = Input.mousePosition.x;
+	    }
+
+	    if (Input.GetMouseButton(0)) {
+            if (Input.mousePosition.y <= Screen.height/3) {
+                transform.localPosition = transform.localPosition + new Vector3(Input.mousePosition.x - mousePosX, 0, 0);
+                mousePosX = Input.mousePosition.x;
+
+            }
+        }
+
 	}
 }

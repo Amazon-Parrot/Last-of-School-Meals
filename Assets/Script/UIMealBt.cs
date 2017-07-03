@@ -16,7 +16,7 @@ public class UIMealBt : MonoBehaviour {
                 continue;
             }
             GameObject bt = Instantiate(ButtonMeal, transform);
-            bt.transform.localPosition = new Vector3(-496 + 200 * i, 232, 0);
+            bt.transform.localPosition = new Vector3(-496 + 200 * i, 0, 0);
             var attr = bt.GetComponent<BtMeal>();
 
             attr.meal = tmp.GetComponent<BaseMeal>();

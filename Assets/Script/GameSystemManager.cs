@@ -6,6 +6,10 @@ public class GameSystemManager : MonoBehaviour {
 
     public PlayerMeal playerMeal;
 
+    private GameObject mealPanel;
+    private GameObject cookPanel;
+    public bool isSelectedMeal;
+
     private static GameSystemManager instance;
     public static GameSystemManager GetInstance() {
         if (!instance) {
@@ -20,12 +24,19 @@ public class GameSystemManager : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		
+	    mealPanel = GameObject.Find("MealPanel");
+	    cookPanel = GameObject.Find("CookPanel");
+
+        cookPanel.SetActive(false);
+	    isSelectedMeal = false;
 	}
 	
 	// Update is called once per frame
 	void Update () {
-		
+	    if (!cookPanel.activeInHierarchy && isSelectedMeal) {
+	        cookPanel.SetActive(true);
+            mealPanel.SetActive(false);
+	    }
 	}
 
     public void ClickedIngredient(BaseIngredient ingredient) {

@@ -2,12 +2,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum Recipe {Raw, Boil, Fry, CoolDown};
+public enum Recipe {Raw, Boil, Fry, CoolDown, Anything};
 
 public class BaseMeal : BaseTasty {
 
 	public Recipe m_recipe;
     public string m_name;
+
+    public string m_spriteName;
 
     public bool isHide;
 

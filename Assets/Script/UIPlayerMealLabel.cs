@@ -19,6 +19,12 @@ public class UIPlayerMealLabel : MonoBehaviour {
 	void Update () {
 
 	    if (Input.GetMouseButtonUp(0)) {
+
+	        if (playerMeal.currentIngredients.Count <= 0) {
+                label.text = "";
+                return;
+	        }
+
             string str = "";
 
             //짠거

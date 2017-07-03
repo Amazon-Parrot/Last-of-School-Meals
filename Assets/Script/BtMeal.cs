@@ -7,6 +7,7 @@ public class BtMeal : MonoBehaviour {
     public BaseMeal meal;
 
     private UILabel label;
+    private UISprite sprite;
 
     // Use this for initialization
     void Start () {
@@ -21,9 +22,15 @@ public class BtMeal : MonoBehaviour {
                 label = tmp.GetComponent<UILabel>();
                 continue;
             }
+
+            if (tmp.transform.name == "Background") {
+                sprite = tmp.GetComponent<UISprite>();
+                continue;
+            }
         }
 
         label.text = meal.m_name;
+        sprite.spriteName = meal.m_spriteName;
     }
 
     // Update is called once per frame
@@ -33,5 +40,6 @@ public class BtMeal : MonoBehaviour {
 
     void OnClick() {
         GameSystemManager.GetInstance().ClickedTargetMeal(meal);
+        GameSystemManager.GetInstance().isSelectedMeal = true;
     }
 }

@@ -7,6 +7,8 @@ public class PlayerMeal : BaseMeal {
 	public ArrayList currentIngredients;
 	public BaseMeal targetMeal;
 
+    public ArrayList currentDebuff;
+
 	// Use this for initialization
 	void Start () {
 		currentIngredients = new ArrayList();
@@ -26,6 +28,7 @@ public class PlayerMeal : BaseMeal {
     public void UpdateIngredients() {
 
         t_salty = t_healthy = t_moisture = t_sourly = t_spaicy = 0;
+        currentDebuff = new ArrayList();
 
         int count_salty = 0;
         int count_healthy = 0;
@@ -59,6 +62,12 @@ public class PlayerMeal : BaseMeal {
             if (ingredient.t_spaicy >= 0) {
                 t_spaicy += ingredient.t_spaicy;
                 count_spaicy++;
+            }
+
+            if (ingredient.t_debuff.Length > 0) {
+                for (int j = 0; j < ingredient.t_debuff.Length; j++) {
+                    currentDebuff.Add(ingredient.t_debuff[j]);
+                }
             }
 
         }

@@ -23,10 +23,12 @@ public class GameSystemManager : MonoBehaviour {
 
     private GameObject mealPanel;
     private GameObject cookPanel;
+    private GameObject recipePanel;
     private GameObject resultPanel;
 
     public bool isSelectedMeal;
     public bool isResult = false;
+    public bool isRecipe = false;
 
     public TotalMealScore TotalResultMealScore;
 
@@ -46,10 +48,12 @@ public class GameSystemManager : MonoBehaviour {
 	void Start () {
 	    mealPanel = GameObject.Find("MealPanel");
 	    cookPanel = GameObject.Find("CookPanel");
+        recipePanel = GameObject.Find("RecipePanel");
         resultPanel = GameObject.Find("ResultPanel");
 
         cookPanel.SetActive(false);
         resultPanel.SetActive(false);
+        recipePanel.SetActive(false);
 	    isSelectedMeal = false;
 	}
 	
@@ -61,8 +65,15 @@ public class GameSystemManager : MonoBehaviour {
 	        isSelectedMeal = false;
 	    }
 
-	    if (isResult && !resultPanel.activeInHierarchy) {
-	        cookPanel.SetActive(false);
+	    if (isRecipe && !recipePanel.activeInHierarchy) {
+            cookPanel.SetActive(false);
+            recipePanel.SetActive(true);
+	        isRecipe = false;
+
+	    }
+
+        if (isResult && !resultPanel.activeInHierarchy) {
+            recipePanel.SetActive(false);
             resultPanel.SetActive(true);
 
 	        TotalResultMealScore = AnalysisMeal();
@@ -77,16 +88,22 @@ public class GameSystemManager : MonoBehaviour {
             Debug.Log("디버프 여부 : " + TotalResultMealScore.isDebuffCorrect);
             Debug.Log("필수요소 여부 : " + TotalResultMealScore.isMustUseCorrect);
             Debug.Log("필수밴요소 여부 : " + TotalResultMealScore.isMustNotUseCorrect);
-        }
+
+	        GameObject.Find("ResultPlayerSprite").GetComponent<UIPlayerSick>().mealScore = TotalResultMealScore;
+	    }
 	}
 
-    public void ClickedIngredient(BaseIngredient ingredient) {
+    public bool ClickedIngredient(BaseIngredient ingredient) {
+
+        bool returnValue = playerMeal.AddIngredient(ingredient);
         
-        if (!playerMeal.AddIngredient(ingredient)){
+        if (!returnValue){
             playerMeal.DeleteIngredient(ingredient);
         }
 
         playerMeal.UpdateIngredients();
+
+        return returnValue;
     }
 
     public void ClickedTargetMeal(BaseMeal meal) {

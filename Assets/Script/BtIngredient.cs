@@ -5,12 +5,15 @@ using UnityEngine;
 public class BtIngredient : MonoBehaviour {
 
     public BaseIngredient Ingredient;
+    public GameObject IngredientObjectsParent;
 
     private UILabel label;
+    private UISprite sprite;
+
+    private GameObject ingredientGameObject = null;
 
     // Use this for initialization
     void Start () {
-        
     }
 
     public void Init() {
@@ -19,6 +22,11 @@ public class BtIngredient : MonoBehaviour {
 
             if (tmp.transform.name == "Label") {
                 label = tmp.GetComponent<UILabel>();
+                continue;
+            }
+
+            if (tmp.transform.name == "Background") {
+                sprite = tmp.GetComponent<UISprite>();
                 continue;
             }
         }
@@ -32,6 +40,13 @@ public class BtIngredient : MonoBehaviour {
 	}
 
     void OnClick() {
-        GameSystemManager.GetInstance().ClickedIngredient(Ingredient);
+        if (GameSystemManager.GetInstance().ClickedIngredient(Ingredient)) {
+            ingredientGameObject = Instantiate(GameObject.Find("IngredientSprite"), IngredientObjectsParent.transform);
+            ingredientGameObject.transform.localPosition = Vector3.zero;
+        }
+        else {
+            Destroy(ingredientGameObject);
+            ingredientGameObject = null;
+        }
     }
 }

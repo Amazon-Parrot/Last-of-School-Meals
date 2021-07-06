@@ -1,2 +1,2 @@
-# my-snack-s-dormitory-meal-card
-내간식의 기식카드 사용하기
+# 라스트 오브 학식
+와! 학식을 만들어서 먹어보아요!
